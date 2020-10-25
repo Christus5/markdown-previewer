@@ -5,8 +5,5 @@
 #main-div {
 	background-color: $light-cyan;
 	padding: 15vh 0;
-}
-
-i {
-	cursor: pointer;	
+	transition: 1s ease-in-out;
 }

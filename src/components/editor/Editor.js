@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 /* Actions */
@@ -9,72 +9,54 @@ const mapDispatchToProps = dispatch => ({
 	codeDefault: c => dispatch(codeDefault(c))
 });
 
-const placeholder = `# Welcome to my React Markdown Previewer!
-
-## This is a sub-heading...
-### And here's some other cool stuff:
-
-Heres some code, \`<div></div>\`, between 2 backticks.
-
-\`\`\`
-// this is multi-line code:
-
-function anotherExample(firstLine, lastLine) {
-  if (firstLine == '\`\`\`' && lastLine == '\`\`\`') {
-	return multiLineCode;
-  }
-}
-\`\`\`
-
-You can also make text **bold**... whoa!
-Or _italic_.
-Or... wait for it... **_both!_**
-And feel free to go crazy ~~crossing stuff out~~.
-
-There's also [links](https://www.freecodecamp.com), and
-> Block Quotes!
-
-And if you want to get really crazy, even tables:
-
-Wild Header | Crazy Header | Another Header?
------------- | ------------- | -------------
-Your content can | be here, and it | can be here....
-And here. | Okay. | I think we get it.
-
-- And of course there are lists.
-  - Some are bulleted.
-	 - With different indentation levels.
-		- That look like this.
-
-
-1. And there are numbererd lists too.
-1. Use just 1s if you want!
-1. And last but not least, let's not forget embedded images:
-
-![React Logo w/ Text](https://goo.gl/Umyytc)
-`;
+const mapStateToProps = state => ({
+	code: state.code,
+	maximized: state.maximized
+});
 
 const Editor = props => {
+	const code = props.code;
+	const [maximized, setMaximized] = useState(false);
+
 	function handleChange(e){
 		props.codeChange(e);
 	}
+	function toggleMaximize() {
+		setMaximized(!maximized);
+	}
 
 	useEffect(() => {
-		props.codeDefault(placeholder);
+		const editor = document.querySelector(".editor-container");
+		const preview = document.querySelector(".preview-container");
+		const mainDiv = document.getElementById("main-div");
+		if(maximized){
+			editor.classList.add("maximized");
+			preview.classList.add("hide");
+			mainDiv.style.padding = "0";
+		} else {
+			editor.classList.remove("maximized");
+			preview.classList.remove("hide");
+			mainDiv.style.padding = "15vh";
+		}
 	});
 
 	return (
 		<form className="editor-container">
 			<header className="editor-header">
 				<h2>Editor</h2>
-				<i className="material-icons">
-open_in_full</i>
+				{maximized === false &&<i className="material-icons"
+				onClick={toggleMaximize}>
+					open_in_full</i>}
+				{maximized === true &&<i class="material-icons"
+				onClick={toggleMaximize}>
+					close_fullscreen</i>}
 			</header>
 			<textarea id="editor" rows="10"
-			onChange={handleChange} placeholder="Enter code here">{placeholder}</textarea>
+			onChange={handleChange}
+			placeholder="Enter code here">{code}</textarea>
 		</form>
 	);
 }
 
-export default connect(null, mapDispatchToProps)(Editor);
+export default connect(mapStateToProps, mapDispatchToProps)(Editor);
 

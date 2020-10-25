@@ -5,15 +5,43 @@ $light-cyan: #49b9fad7;
 	width: 90%;
 	margin: 0 auto;
 	box-shadow: 0 0 10px 1px black;
+	transition: 1s ease-in-out;
 	header {
 		box-sizing: border-box;
 		margin: 0;
-		padding: 2vh 2vw;
+		padding: 1vh 0.2vw;
 		background-color: $cyan;
 		display: flex;
 		justify-content: space-between;
 		h2 {
 			display: inline-block;
 		}
+		i {
+			cursor: pointer;
+			transition: 0.3s ease-out;
+		}
+		i:hover {
+			color: white;
+		}
 	}
+}
+
+.maximized {
+	width: 100%;
+	min-height: 100vh;
+	margin: auto;
+	header {
+		position: sticky;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+	#editor {
+		height: 93vh;
+		resize: none;
+	}
+}
+
+.hide {
+	display: none;
 }
