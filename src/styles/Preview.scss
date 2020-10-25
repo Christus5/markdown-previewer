@@ -1,0 +1,13 @@
+@import "./variables";
+
+.preview-container{
+	@include container;
+	margin-top: 10vh;
+	#preview {
+		display: block;
+		background-color: white;
+		width: 100%;
+		min-height: 250px;
+		overflow-wrap: break-word;
+	}
+}

@@ -1,0 +1,16 @@
+@import "variables.scss";
+
+/* editor */
+.editor-container {
+	@include container;
+	#editor {
+		box-sizing: border-box;
+		resize: vertical;
+		font-size: 12px;
+		padding: 5px 5px auto auto;
+		outline: none;
+		width: 100%;
+		min-height: 250px;
+		margin-bottom: -5px;
+	}
+}

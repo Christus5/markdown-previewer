@@ -1,0 +1,12 @@
+@import "Editor.scss";
+@import "Preview.scss";
+@import "variables.scss";
+
+#main-div {
+	background-color: $light-cyan;
+	padding: 15vh 0;
+}
+
+i {
+	cursor: pointer;	
+}
